@@ -9,18 +9,14 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'Offer'}" exact>
+            <router-link class="nav-link" :to="{name: 'OfferList'}" exact>
               Offer
             </router-link>
           </li>
           <li class="nav-item history">
             <router-link class="nav-link" to="/history" exact>
-              Offer(s) viewed
-            </router-link>
-            <div class="history-items">
-              <!-- {{history.length}} -->
               History
-            </div>
+            </router-link>
           </li>
         </ul>
       </nav>
@@ -64,10 +60,6 @@ header {
   width: 1184px;
   margin: 0 auto;
 }
-.logo {
-  width:5em;
-  height: 5em;
-}
 ul {
   padding: 3px;
   display: flex;
@@ -78,16 +70,30 @@ ul {
   font-size: 22px;
   border-right: 1px solid #bbb;
 }
+.logo {
+  width:5em;
+  height: 5em;
+}
+.logo {
+  vertical-align: middle;
+  height: 30px;
+}
 .nav-link {
   text-decoration: none;
   color: inherit;
 }
 .router-link-active {
-  color: blue;
+  color: white;
 }
 .container {
   display: flex;
   margin: 10px auto 0 auto;
   justify-content: center;
+}
+.aside {
+  padding: 30px;
+  background-color: #aaa;
+  width: 100px;
+  min-height: 300px;
 }
 </style>

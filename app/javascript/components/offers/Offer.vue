@@ -27,17 +27,17 @@ export default {
   name: 'Offer',
   created() {
   },
-  beforeRouteLeave(to, from, next) {
-    if (this.addedToCart) {
-      next(true);
-    } else {
-      // Demo-purpose
-      /* eslint no-alert: 0 */
-      /* eslint no-restricted-globals: 0 */
-      const response = confirm('You have not added your robot to your cart, are you sure you want to leave?');
-      next(response);
-    }
-  },
+  // beforeRouteLeave(to, from, next) {
+  //   if (this.addedToCart) {
+  //     next(true);
+  //   } else {
+  //     // Demo-purpose
+  //     /* eslint no-alert: 0 */
+  //     /* eslint no-restricted-globals: 0 */
+  //     const response = confirm('You have not added your robot to your cart, are you sure you want to leave?');
+  //     next(response);
+  //   }
+  // },
   components: { CollapsibleSection },
   data() {
     return {
