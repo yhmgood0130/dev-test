@@ -24,7 +24,7 @@ import { mapActions } from 'vuex';
 import CollapsibleSection from '../shared/CollapsibleSection.vue';
 
 export default {
-  name: 'Offer',
+  name: 'History',
   created() {
   },
   beforeRouteLeave(to, from, next) {

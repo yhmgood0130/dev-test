@@ -1,12 +1,11 @@
 <template>
-  <div id="app">
+  <div>
     <header>
       <nav>
         <ul>
           <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'Home'}" exact>
-            <img class="logo" src="./assets/ibotta-logo.png" />
-            ibotta
+            <img class="logo" src="https://axismonitoring.com/NewWebsite/wp-content/uploads/2015/03/SCRAM_CAM_H.png" />
             </router-link>
           </li>
           <li class="nav-item">
@@ -19,7 +18,8 @@
               Offer(s) viewed
             </router-link>
             <div class="history-items">
-              {{history.length}}
+              <!-- {{history.length}} -->
+              History
             </div>
           </li>
         </ul>
@@ -63,6 +63,10 @@ header {
   background-color: #999;
   width: 1184px;
   margin: 0 auto;
+}
+.logo {
+  width:5em;
+  height: 5em;
 }
 ul {
   padding: 3px;

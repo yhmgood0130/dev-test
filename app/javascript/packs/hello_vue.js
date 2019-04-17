@@ -7,12 +7,15 @@
 
 import Vue from 'vue'
 import App from '../app.vue'
+import router from '../router';
+import store from '../store';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const el = document.body.appendChild(document.createElement('hello'))
   const app = new Vue({
-    el,
-    render: h => h(App)
+    el: "#app",
+    render: h => h(App),
+    router,
+    store,
   })
 
   console.log(app)
