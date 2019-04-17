@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.5.3'
 
+gem 'webpacker'
+gem 'foreman'
 gem 'rails', '~> 5.2'
 gem 'sqlite3'
 gem 'sass-rails'
