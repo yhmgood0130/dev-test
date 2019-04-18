@@ -1,56 +1,53 @@
 <template>
-  <div class="content">
-    <div class="preview">
-      <CollapsibleSection>
-      <div class="preview-content">
-        <div class="top-row">
-          <h2>Top Row</h2>
-        </div>
-        <div class="middle-row">
-          <h2>Center Row</h2>
-        </div>
-        <div class="bottom-row">
-          <h2>Bottom Row</h2>
-        </div>
+    <div class="offer-box">
+      <img :src="offer.image_url" class="">
+      <div class="item-description">
+        <h4>{{offer.name}}</h4>
+        <div>{{offer.descridivtion}}</div>
+        <div>{{offer.terms}}</div>
       </div>
-      </CollapsibleSection>
     </div>
-  </div>
 </template>
 
 <script>
-// For Hardcoded Local API call - import availableParts from '../data/part';
-import { mapActions } from 'vuex';
-import CollapsibleSection from '../shared/CollapsibleSection.vue';
+import getOffersMixin from './get-offers-mixin';
 
 export default {
   name: 'Offer',
-  created() {
-  },
-  // beforeRouteLeave(to, from, next) {
-  //   if (this.addedToCart) {
-  //     next(true);
-  //   } else {
-  //     // Demo-purpose
-  //     /* eslint no-alert: 0 */
-  //     /* eslint no-restricted-globals: 0 */
-  //     const response = confirm('You have not added your robot to your cart, are you sure you want to leave?');
-  //     next(response);
-  //   }
-  // },
-  components: { CollapsibleSection },
-  data() {
-    return {
-      addedToCart: false,
-    };
+  mixins: [getOffersMixin],
+  props: {
+    id: { 
+      type: [Number,String],
+      validator(value) {
+       return Number.isInteger(Number(value));
+      },
+    },
   },
   computed: {
-  },
-  methods: {
-    ...mapActions('offers', ['getOffer']),
+    offer() {
+      const { id } = this;
+      return this.offers.offers.find(offer => offer.id === +id);
+    }
   },
 };
 </script>
 
 <style lange="scss" scoped>
+.detail-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  padding: 10px;
+  flex: 1 0 calc(33% - 8px); /* explanation below */
+  margin: 5px;
+  height: 30em;
+  box-shadow: 0 0 5px grey;
+  border-radius: 2%;
+}
+img {
+  height: calc(40% - 4px);
+  bottom: 0;
+  padding-bottom: 10px;
+}
 </style>

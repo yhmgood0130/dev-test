@@ -16,13 +16,13 @@ export default {
   },
   actions: {
     getRetailers({ commit }, customerId) {
-      axios.get(`/api/customers/${customerId}`)
-        .then(result => commit('getCustomer', result.data[0]))
+      axios.get(`/api/v1/retailers`)
+        .then(result => commit('getRetailers', result.data))
         .catch(console.error);
     },
     getRetailerOffers({ commit }, agentId) {
-      axios.get(`/api/agents/${agentId}/customers`)
-        .then(result => commit('getCustomerList', result.data))
+      axios.get('/api/v1/retaileroffers')
+        .then(result => commit('getRetailerOffers', result.data))
         .catch(console.error);
     },
   },
