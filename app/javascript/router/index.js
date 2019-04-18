@@ -30,7 +30,6 @@ export default new Router({
     path: '/offers/:id',
     name: 'Offer',
     component: Offer,
-    props: true,
     beforeEnter(to, from, next) {
       const isValidId = Number.isInteger(Number(to.params.id));
       next(isValidId);
@@ -39,6 +38,9 @@ export default new Router({
   {
     path: '/history',
     name: 'History',
-    component: History,
+    components: {
+      default: OfferList,
+      sidebar: SidebarOffer
+    },
   }],
 });

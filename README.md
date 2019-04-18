@@ -17,7 +17,7 @@ browser as a single page application.
  * [ ] Provide code in a private git repo (hosted or in an archive)
 
 ### Nice to have
- * [ ] Track offer views
+ * [x] Track offer views
  * [x] Search for offers
  * [ ] Filter offers in the gallery by retailer
  * [ ] Display retailer info for an offer

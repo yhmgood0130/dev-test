@@ -14,17 +14,12 @@ import getOffersMixin from './get-offers-mixin';
 
 export default {
   created() {
-    this.$store.dispatch('offers/getOfferById',this.id);
+    console.log(this.$router);
+    console.log(this.$router.params);
+    
+    this.$store.dispatch('offers/getOfferById',this.$route.params.id);
   },
   name: 'Offer',
-  props: {
-    id: { 
-      type: [Number,String],
-      validator(value) {
-       return Number.isInteger(Number(value));
-      },
-    },
-  },
   computed: {
     offer() {
       return this.$store.state.offers.offer;

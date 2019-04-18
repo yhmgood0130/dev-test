@@ -3,23 +3,11 @@
     <div class="preview">
       <CollapsibleSection>
       <div class="preview-content">
-        <input type="search" v-model="searchWord" required />
+        <input v-if="isOffer" type="search" v-model="searchWord" required />
         <div class="top-row offer-list">
-          <div class="offer-box" v-for="(offer,idx) in filteredOffers" :key="idx">
-          <router-link :to="{
-            name: 'Offer',
-            params: {
-              id: offer.id
-            }}">
-            <img class="item-image" :src="offer.image_url">
-          </router-link>
-        </div>
-        </div>
-        <div class="middle-row">
-          <h2>Center Row</h2>
-        </div>
-        <div class="bottom-row">
-          <h2>Bottom Row</h2>
+          <div class="offer-box" v-for="(offer,idx) in offerList" :key="idx">
+            <img @click="addToHistory(offer)" @  class="item-image" :src="offer.image_url">          
+         </div>
         </div>
       </div>
       </CollapsibleSection>
@@ -34,32 +22,41 @@ import CollapsibleSection from '../shared/CollapsibleSection.vue';
 export default {
   name: 'OfferList',
   created() {
-    this.getOffers();
+    const { isOffer } = this.$data;
+    if(isOffer) {
+      this.getOffers();
+    } else {
+      this.getOfferHistory();
+    }
   },
-  components: { CollapsibleSection },
   data() {
     return {
-      addedToCart: false,
-    };
+      isOffer: this.$route.path === '/offers',
+    }
   },
+  components: { CollapsibleSection },
   computed: {
-    availableOffers() {
-      return this.$store.state.offers.offers;
-    },
-    filteredOffers () {
-      try {
-        let a = this.$store.getters['offers/getFilteredOffer'];
-        if (a) {
-          a = (this.$store.getters['offers/getFilteredOffer'].length > 0 ? 
-            this.$store.getters['offers/getFilteredOffer'] :
-            this.$store.state.offers.offers)
-        } else {
-          a = this.$store.state.offers.offers;
+    offerList () {
+      const { isOffer } = this.$data;
+      console.log(isOffer);
+      
+        if (isOffer) {
+          try {
+            let a = this.$store.getters['offers/getFilteredOffer'];
+            if (a) {
+              a = (this.$store.getters['offers/getFilteredOffer'].length > 0 ? 
+                this.$store.getters['offers/getFilteredOffer'] :
+                this.$store.state.offers.offers)
+            } else {
+              a = this.$store.state.offers.offers;
+            }
+            return a
+          } catch (e) {
+            console.log(e)
+          }
+        } else  {
+          return this.$store.state.offers.offerHistories;
         }
-        return a
-      } catch (e) {
-        console.log(e)
-      }
     },
     searchWord: {
       get () {
@@ -70,8 +67,17 @@ export default {
       }
     }
   },
+  watch: {
+    isOffer() {
+      return this.$route.path === '/offers';
+    },
+  },
   methods: {
-    ...mapActions('offers', ['getOffers']),
+    ...mapActions('offers', ['getOffers', 'getOfferHistory', 'saveOfferHistory']),
+    addToHistory(offer) {
+      this.saveOfferHistory(offer)
+        .then(() => this.$router.push({ name: 'Offer', params: { id: offer.id }}));
+    }
   },
 };
 

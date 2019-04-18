@@ -5,7 +5,7 @@
         <ul>
           <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'Home'}" exact>
-            <img class="logo" src="https://axismonitoring.com/NewWebsite/wp-content/uploads/2015/03/SCRAM_CAM_H.png" />
+              <img class="logo" src="https://axismonitoring.com/NewWebsite/wp-content/uploads/2015/03/SCRAM_CAM_H.png" />
             </router-link>
           </li>
           <li class="nav-item">
@@ -14,7 +14,7 @@
             </router-link>
           </li>
           <li class="nav-item history">
-            <router-link class="nav-link" to="/history" exact>
+            <router-link class="nav-link" :to="{ name: 'History'}" exact>
               History
             </router-link>
           </li>
@@ -26,7 +26,7 @@
         <router-view name="sidebar"/>
       </aside>
       <main>
-       <router-view />
+       <router-view :key="this.$route.fullPath" />
       </main>
     </div>
   </div>

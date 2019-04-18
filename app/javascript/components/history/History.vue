@@ -3,14 +3,11 @@
     <div class="preview">
       <CollapsibleSection>
       <div class="preview-content">
-        <div class="top-row">
-          <h2>Top Row</h2>
-        </div>
-        <div class="middle-row">
-          <h2>Center Row</h2>
-        </div>
-        <div class="bottom-row">
-          <h2>Bottom Row</h2>
+        <input type="search" v-model="searchWord" required />
+        <div class="top-row offer-list">
+          <div class="offer-box" v-for="(offer,idx) in offerHistories" :key="idx">
+            <img @click="addToHistory(offer)" @  class="item-image" :src="offer.image_url">          
+          </div>
         </div>
       </div>
       </CollapsibleSection>
@@ -19,27 +16,57 @@
 </template>
 
 <script>
-// For Hardcoded Local API call - import availableParts from '../data/part';
 import { mapActions } from 'vuex';
 import CollapsibleSection from '../shared/CollapsibleSection.vue';
 
 export default {
   name: 'History',
   created() {
+    this.getOfferHistory();
   },
   components: { CollapsibleSection },
-  data() {
-    return {
-      addedToCart: false,
-    };
-  },
   computed: {
+    offerHistories() {
+      return this.$store.state.offers.offerHistories;
+    },
   },
   methods: {
-    ...mapActions('offers', ['getOfferById']),
+    ...mapActions('offers', ['getOfferHistory']),
   },
 };
+
 </script>
 
-<style lange="scss" scoped>
+<style lange="scss">
+.offer-list {
+  display: flex;
+  flex-wrap: wrap;  
+}
+
+.item-image {
+  object-fit: contain;
+}
+
+.offer-box {
+  text-align: center;
+  padding: 10px;
+  flex: 1 0 calc(33% - 8px); /* explanation below */
+  margin: 5px;
+  height: 30em;
+  box-shadow: 0 0 5px grey;
+  border-radius: 2%;
+  cursor: pointer;
+}
+img {
+  height: calc(40% - 4px);
+  padding: 20px 0;
+}
+
+.item-description {
+  vertical-align: bottom;
+  font-family: Verdana,Geneva,sans-serif; 
+  font-size: 12px;
+  font-weight: 900;
+  color: #424040;
+}
 </style>

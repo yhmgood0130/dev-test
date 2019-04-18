@@ -1,12 +1,17 @@
 <template>
   <div class="sidebar">
-    Offer Sidebar
+    {{this.title}}
   </div>
 </template>
 
 <script>
 export default {
   name: 'Offer',
+  computed: {
+    title() {
+      return this.$route.fullPath === "/offers" ? 'Offer' : 'History';
+    }
+  }
 };
 </script>
 

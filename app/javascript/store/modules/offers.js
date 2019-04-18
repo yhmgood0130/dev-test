@@ -23,7 +23,7 @@ export default {
   state: {
     offer: null,
     offers: null,
-    pageVistis: [],
+    offerHistories: [],
     searchWord: null,
     filteredOffers: []
   },
@@ -33,6 +33,9 @@ export default {
     },
     getOffers(state, offers) {
       state.offers = offers;
+    },
+    saveOfferHistory(state,offer) {
+      state.offerHistories.push(offer);
     },
     filteredOffers(state, word) {
       if (!(word) || word === '{}') {
@@ -46,9 +49,8 @@ export default {
         })
       }
     },
-    pagesVisited(state, offer) {
-      // Will add validations in a bit
-      state.pageVisits.push(offer);
+    getOfferHistory(state) {
+      state.offerHistories
     },
   },
   actions: {
@@ -60,8 +62,17 @@ export default {
         .then(result => commit('getOffers', result.data))
         .catch(console.error);
     },
-    pagesVisited({ commit }, offer) {
-      commit('pagesVisited', offer);
+    saveOfferHistory({ commit, state }, offer) {
+      let isDuplicated = false;
+      if (offer) {
+        isDuplicated = state.offerHistories.some(o => o.id === offer.id);
+      }
+      if (!isDuplicated) {
+        commit('saveOfferHistory',offer);
+      }
+    },
+    getOfferHistory({ commit }) {
+      commit('getOfferHistory');
     },
     filteredOffers ({ commit }, word) {
       commit('filteredOffers', word)
