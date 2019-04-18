@@ -4,6 +4,12 @@
       <CollapsibleSection>
       <div class="preview-content">
         <input v-if="isOffer" type="search" v-model="searchWord" required />
+        <select v-model="selectedRetailer">
+          <option disabled value="">Please select one</option>
+          <option value=0>All</option>
+          <option v-for="(retailer,idx) in retailers" :key="idx" :value="retailer.id">{{retailer.name}}</option>
+        </select>
+        <span>Selected: {{ selectedRetailer }}</span>
         <div class="top-row offer-list">
           <div class="offer-box" v-for="(offer,idx) in offerList" :key="idx">
             <img @click="addToHistory(offer)" @  class="item-image" :src="offer.image_url">          
@@ -28,6 +34,8 @@ export default {
     } else {
       this.getOfferHistory();
     }
+    this.getRetailers();
+    this.getRetailerOffers();
   },
   data() {
     return {
@@ -37,26 +45,32 @@ export default {
   components: { CollapsibleSection },
   computed: {
     offerList () {
-      const { isOffer } = this.$data;
-      console.log(isOffer);
-      
+      const { isOffer } = this.$data;      
         if (isOffer) {
-          try {
-            let a = this.$store.getters['offers/getFilteredOffer'];
-            if (a) {
-              a = (this.$store.getters['offers/getFilteredOffer'].length > 0 ? 
+            let filteredOfferList = this.$store.getters['offers/getFilteredOffer'];
+
+            if (filteredOfferList) {
+              filteredOfferList = (this.$store.getters['offers/getFilteredOffer'].length > 0 ? 
                 this.$store.getters['offers/getFilteredOffer'] :
                 this.$store.state.offers.offers)
             } else {
-              a = this.$store.state.offers.offers;
+              filteredOfferList = this.$store.state.offers.offers;
             }
-            return a
-          } catch (e) {
-            console.log(e)
-          }
+            return filteredOfferList;
         } else  {
           return this.$store.state.offers.offerHistories;
         }
+    },
+    retailers() {
+      return this.$store.state.retailers.retailers;
+    },
+    selectedRetailer: {
+      get () {
+        return this.$store.state.offers.selectedRetailer
+      },
+      set (value) {
+        this.$store.dispatch('offers/selectedRetailerOffers', value)
+      }
     },
     searchWord: {
       get () {
@@ -74,6 +88,7 @@ export default {
   },
   methods: {
     ...mapActions('offers', ['getOffers', 'getOfferHistory', 'saveOfferHistory']),
+    ...mapActions('retailers', ['getRetailers','getRetailerOffers']),
     addToHistory(offer) {
       this.saveOfferHistory(offer)
         .then(() => this.$router.push({ name: 'Offer', params: { id: offer.id }}));

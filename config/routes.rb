@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'api/v1/offers/:id' => 'api/v1/offers#show'
   get 'api/v1/retailers/:id' => 'api/v1/retailers#show'
   get 'api/v1/retaileroffers/:id' => 'api/v1/retaileroffers#show'
+  get 'api/v1/retaileroffers/offers/:id' => 'api/v1/retaileroffers#show2'
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

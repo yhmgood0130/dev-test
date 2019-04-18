@@ -37,6 +37,16 @@ export default {
     saveOfferHistory(state,offer) {
       state.offerHistories.push(offer);
     },
+    selectedRetailerOffers(state, retailerId) {
+      if(+retailerId > 0) {
+        let offers = rootState.offers.offers;
+        let retailerOffers = rootState.retailers.retailersByOffer.filter(reOffer => reOffer.retailer_id === selected);
+        let result = offers.filter(retailer => 
+          retailerOffers.some(retailerOffer => 
+          retailerOffer.offer_id === offers.id));
+        state.filteredOffers
+      }
+    },
     filteredOffers(state, word) {
       if (!(word) || word === '{}') {
         state.searchWord = null
@@ -73,6 +83,17 @@ export default {
     },
     getOfferHistory({ commit }) {
       commit('getOfferHistory');
+    },
+    selectedRetailerOffers({ commit, state, rootState }, id) {
+      let offers = state.offers;
+      let retailerOffers = rootState.retailers.retailerOffers
+        .filter(reOffer => reOffer.retailer_id === selected);
+      let result = offers.filter(offer => retailerOffers.some(offer.id));
+
+      let result = offers.filter(retailer => 
+        retailerOffers.some(retailerOffer => 
+        retailerOffer.offer_id === offers.id));
+      state.filteredOffers
     },
     filteredOffers ({ commit }, word) {
       commit('filteredOffers', word)

@@ -14,13 +14,13 @@ browser as a single page application.
  * [x] Display all offers in a gallery view
  * [x] Display an individual offer in a detail view
  * [ ] Application is well tested
- * [ ] Provide code in a private git repo (hosted or in an archive)
+ * [x] Provide code in a private git repo (hosted or in an archive)
 
 ### Nice to have
  * [x] Track offer views
  * [x] Search for offers
  * [ ] Filter offers in the gallery by retailer
- * [ ] Display retailer info for an offer
+ * [x] Display retailer info for an offer
 
 ### Documentation
 Consider writing documentation that would be useful to maintainers of your application. Suggestions for documentation topics include:
