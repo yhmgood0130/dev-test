@@ -1,5 +1,5 @@
 <template>
-    <div class="offer-box">
+    <div v-if="offer" class="offer-box">
       <img :src="offer.image_url" class="">
       <div class="item-description">
         <h4>{{offer.name}}</h4>
@@ -13,8 +13,10 @@
 import getOffersMixin from './get-offers-mixin';
 
 export default {
+  created() {
+    this.$store.dispatch('offers/getOfferById',this.id);
+  },
   name: 'Offer',
-  mixins: [getOffersMixin],
   props: {
     id: { 
       type: [Number,String],
@@ -25,8 +27,7 @@ export default {
   },
   computed: {
     offer() {
-      const { id } = this;
-      return this.offers.offers.find(offer => offer.id === +id);
+      return this.$store.state.offers.offer;
     }
   },
 };

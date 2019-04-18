@@ -21,12 +21,16 @@ const removerAcentos = (string) => {
 export default {
   namespaced: true,
   state: {
+    offer: null,
     offers: null,
     pageVistis: [],
     searchWord: null,
     filteredOffers: []
   },
   mutations: {
+    getOfferById(state, id) {
+      state.offer = state.offers.find(offer => offer.id === +id);
+    },
     getOffers(state, offers) {
       state.offers = offers;
     },
@@ -48,6 +52,9 @@ export default {
     },
   },
   actions: {
+    getOfferById({ commit },id) {
+      commit('getOfferById', id);
+    },
     getOffers({ commit }) {
       axios.get('/api/v1/offers')
         .then(result => commit('getOffers', result.data))

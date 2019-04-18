@@ -56,8 +56,6 @@ export default {
         } else {
           a = this.$store.state.offers.offers;
         }
-        console.log(this.$store.getters['offers/getFilteredOffer'])
-        console.log(this.$store.state.offers.offers);
         return a
       } catch (e) {
         console.log(e)

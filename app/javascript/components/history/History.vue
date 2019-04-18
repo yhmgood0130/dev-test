@@ -36,7 +36,7 @@ export default {
   computed: {
   },
   methods: {
-    ...mapActions('offers', ['getOffer']),
+    ...mapActions('offers', ['getOfferById']),
   },
 };
 </script>
