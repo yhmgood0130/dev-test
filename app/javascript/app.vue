@@ -36,34 +36,6 @@ import axios from 'axios';
 export default {
   name: 'app',
 };
-const API_URL = 'http://localhost:3000'
-
-const securedAxiosInstance = axios.create({
-  baseURL: API_URL,
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
-
-console.log(securedAxiosInstance);
-
- let result = axios.get('http://localhost:3000/api/v1/offers')
-        .then(result => result.data)
-        .catch(console.error);
-
-         let result2 = axios.get('http://localhost:3035/api/v1/offers')
-        .then(result => result.data)
-        .catch(console.error);
-
-         let result3 = axios.get('http://localhost:3000/v1/api/offers')
-        .then(result => result.data)
-        .catch(console.error);
-
-        console.log(result);
-        console.log(result2);
-        console.log(result3);
-        
 
 </script>
 
