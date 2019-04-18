@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.5.3'
 
+gem 'responders'
 gem 'webpacker'
 gem 'foreman'
 gem 'rails', '~> 5.2'
