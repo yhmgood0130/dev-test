@@ -1,5 +1,14 @@
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe RetailerOffer, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe RetailerOffer do
+  describe "Associations" do
+    it "belongs_to offer" do
+      assc = described_class.reflect_on_association(:offer)
+      expect(assc.macro).to eq :belongs_to
+    end
+    it "belongs_to retailer" do
+      assc = described_class.reflect_on_association(:retailer)
+      expect(assc.macro).to eq :belongs_to
+    end
+  end
 end
