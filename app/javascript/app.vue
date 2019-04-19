@@ -11,7 +11,7 @@
             >
               <img
                 class="logo"
-                src="https://liferewarded.com/wp-content/uploads/2017/10/ibotta-logo_pink_1200X799.png"
+                src="https://sendgrid.com/wp-content/uploads/2017/10/iBotta-Logo.png"
               >
             </router-link>
           </li>
@@ -76,18 +76,18 @@ ul {
   display: flex;
 }
 .nav-item {
-  display: inline-block;
   padding: 5px 10px;
   font-size: 22px;
+  display : flex;
+  align-items: center;
   border-right: 1px solid #bbb;
 }
-.logo {
-  width: 5em;
-  height: 5em;
+a:hover {
+  background:none;
 }
 .logo {
-  vertical-align: middle;
-  height: 30px;
+  width: 2.5em;
+  height: auto;
 }
 .nav-link {
   text-decoration: none;

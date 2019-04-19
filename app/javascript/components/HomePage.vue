@@ -1,14 +1,8 @@
 <template>
   <div class="home">
-    <div>
-      <img
-        class="logo"
-        src
-        aria-hidden="true"
-      >
-    </div>
     <div class="get-started">
-      <router-link to="/build">Get started</router-link>find your first offer!
+      <img class="main-logo" src="https://liferewarded.com/wp-content/uploads/2018/02/life-rewarded_blog_logo-02.png">
+      <router-link to="/offers">Click here</router-link> to find your first offer!
     </div>
   </div>
 </template>
@@ -33,5 +27,9 @@ export default {
 .get-started {
   padding-top: 20px;
   font-size: 25px;
+}
+.main-logo {
+  width: 25em;
+  height: auto;
 }
 </style>
