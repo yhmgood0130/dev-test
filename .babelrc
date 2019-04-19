@@ -1,0 +1,26 @@
+{ 
+  "presets": [
+    "vue-app",
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": "> 1%",
+        "uglify": true
+      },
+      "useBuiltIns": true
+    }]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "node": "current"
+          }
+      }]]
+  }},
+  "plugins": [
+    "syntax-dynamic-import",
+    "transform-object-rest-spread",   
+  ]
+}
