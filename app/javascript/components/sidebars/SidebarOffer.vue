@@ -1,15 +1,13 @@
 <template>
-  <div class="sidebar">
-    {{this.title}}
-  </div>
+  <div class="sidebar">{{this.title}}</div>
 </template>
 
 <script>
 export default {
-  name: 'Offer',
+  name: "Offer",
   computed: {
     title() {
-      return this.$route.fullPath === "/offers" ? 'Offer' : 'History';
+      return this.$route.fullPath === "/offers" ? "Offer" : "History";
     }
   }
 };

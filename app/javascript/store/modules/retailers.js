@@ -19,21 +19,27 @@ export default {
     }
   },
   actions: {
-    getRetailers({ commit }, customerId) {
+    getRetailers({
+      commit
+    }) {
       axios.get(`/api/v1/retailers`)
         .then(result => commit('getRetailers', result.data))
         .catch(console.error);
     },
-    getRetailerOffers({ commit }) {
+    getRetailerOffers({
+      commit
+    }) {
       axios.get('/api/v1/retaileroffers')
         .then(result => commit('getRetailerOffers', result.data))
         .catch(console.error);
     },
-    getRetailersByOffer({ commit,state }, offerId) {
+    getRetailersByOffer({
+      commit,
+      state
+    }, offerId) {
       let result = state.retailerOffers.filter(retailerOffer => retailerOffer.offer_id === offerId);
       commit('getRetailersByOffer', result)
     }
   },
-  getters: {
-  },
+  getters: {},
 };

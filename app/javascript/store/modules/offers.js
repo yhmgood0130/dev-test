@@ -35,15 +35,21 @@ export default {
     getOffers(state, offers) {
       state.offers = offers;
     },
-    getOffersByRetailer(state, { offers, retailerId }) {
+    getOffersByRetailer(state, {
+      offers,
+      retailerId
+    }) {
       state.searchWord = null;
       state.selected = retailerId;
       state.filteredOffers = offers;
     },
-    saveOfferHistory(state,offer) {
+    saveOfferHistory(state, offer) {
       state.offerHistories.push(offer);
     },
-    filteredOffers(state, { searchWord, offers }) {
+    filteredOffers(state, {
+      searchWord,
+      offers
+    }) {
       state.searchWord = searchWord;
       state.filteredOffers = offers;
     },
@@ -52,36 +58,55 @@ export default {
     },
   },
   actions: {
-    getOfferById({ commit },id) {
+    getOfferById({
+      commit
+    }, id) {
       commit('getOfferById', id);
     },
-    getOffers({ commit }) {
+    getOffers({
+      commit
+    }) {
       axios.get('/api/v1/offers')
         .then(result => commit('getOffers', result.data))
         .catch(console.error);
     },
-    getOffersByRetailer({ commit, state, rootState }, retailerId) {      
+    getOffersByRetailer({
+      commit,
+      state,
+      rootState
+    }, retailerId) {
       let retailerOffers = rootState.retailers.retailerOffers.filter(retailerOffer => retailerOffer.retailer_id === retailerId);
-      let offers = state.offers.filter(offer => retailerOffers.some((retailerOffer) => 
+      let offers = state.offers.filter(offer => retailerOffers.some((retailerOffer) =>
         retailerOffer.offer_id === offer.id
       ));
 
-      commit('getOffersByRetailer', { offers, retailerId })
+      commit('getOffersByRetailer', {
+        offers,
+        retailerId
+      })
     },
-    saveOfferHistory({ commit, state }, offer) {
+    saveOfferHistory({
+      commit,
+      state
+    }, offer) {
       let isDuplicated = false;
       if (offer) {
         isDuplicated = state.offerHistories.some(o => o.id === offer.id);
       }
-      
+
       if (!isDuplicated) {
-        commit('saveOfferHistory',offer);
+        commit('saveOfferHistory', offer);
       }
     },
-    getOfferHistory({ commit }) {
+    getOfferHistory({
+      commit
+    }) {
       commit('getOfferHistory');
     },
-    filteredOffers ({ commit,state }, word) {
+    filteredOffers({
+      commit,
+      state
+    }, word) {
       let searchWord = word;
       let offers = null;
       if (!(word) || word === '{}') {
@@ -89,7 +114,7 @@ export default {
         offers = null
       } else {
         word = removerAcentos(word.trim().toLowerCase());
-        if(state.selected == 0) {
+        if (state.selected == 0) {
           offers = state.offers.filter((offer) => {
             return offer.name.toLowerCase().includes(word);
           });
@@ -101,7 +126,10 @@ export default {
         searchWord = word;
       }
 
-      commit('filteredOffers', { searchWord, offers });
+      commit('filteredOffers', {
+        searchWord,
+        offers
+      });
     }
   },
   getters: {

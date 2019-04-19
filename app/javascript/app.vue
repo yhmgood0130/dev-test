@@ -4,19 +4,30 @@
       <nav>
         <ul>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'Home'}" exact>
-              <img class="logo" src="https://axismonitoring.com/NewWebsite/wp-content/uploads/2015/03/SCRAM_CAM_H.png" />
+            <router-link
+              class="nav-link"
+              :to="{name: 'Home'}"
+              exact
+            >
+              <img
+                class="logo"
+                src="https://liferewarded.com/wp-content/uploads/2017/10/ibotta-logo_pink_1200X799.png"
+              >
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'OfferList'}" exact>
-              Offer
-            </router-link>
+            <router-link
+              class="nav-link"
+              :to="{name: 'OfferList'}"
+              exact
+            >Offer</router-link>
           </li>
           <li class="nav-item history">
-            <router-link class="nav-link" :to="{ name: 'History'}" exact>
-              History
-            </router-link>
+            <router-link
+              class="nav-link"
+              :to="{ name: 'History'}"
+              exact
+            >History</router-link>
           </li>
         </ul>
       </nav>
@@ -26,22 +37,20 @@
         <router-view name="sidebar"/>
       </aside>
       <main>
-       <router-view :key="this.$route.fullPath" />
+        <router-view :key="this.$route.fullPath"/>
       </main>
     </div>
   </div>
 </template>
 <script>
-import axios from 'axios';
 export default {
-  name: 'app',
+  name: "app"
 };
-
 </script>
 
 <style>
 body {
-  background:linear-gradient(to bottom, #555, #999);
+  background: linear-gradient(to bottom, #555, #999);
   background-attachment: fixed;
 }
 </style>
@@ -49,7 +58,7 @@ body {
 
 <style scoped>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
 }
 main {
   padding: 30px;
@@ -73,7 +82,7 @@ ul {
   border-right: 1px solid #bbb;
 }
 .logo {
-  width:5em;
+  width: 5em;
   height: 5em;
 }
 .logo {

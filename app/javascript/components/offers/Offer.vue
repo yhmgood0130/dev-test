@@ -1,27 +1,36 @@
 <template>
-    <div v-if="offer" class="offer-box">
-      <img :src="offer.image_url" class="">
-      <div class="item-description">
-        <h4>{{offer.name}}</h4>
-        <div>{{offer.descridivtion}}</div>
-        <div>{{offer.terms}}</div>
-        <div>Available at</div>
-        <p class="retailer-name" v-for="(retailer, index) in retailers" :key="index">
-          {{retailer.name}}
-        </p>
-      </div>
+  <div
+    v-if="offer"
+    class="offer-box"
+  >
+    <img
+      :src="offer.image_url"
+      class
+    >
+    <div class="item-description">
+      <h4>{{offer.name}}</h4>
+      <div>{{offer.descridivtion}}</div>
+      <div>{{offer.terms}}</div>
+      <div>Available at</div>
+      <p
+        v-for="(retailer, index) in retailers"
+        :key="index"
+        class="retailer-name"
+      >{{retailer.name}}</p>
     </div>
+  </div>
 </template>
 
 <script>
-import getOffersMixin from './get-offers-mixin';
-
 export default {
+  name: "Offer",
   created() {
-    this.$store.dispatch('retailers/getRetailersByOffer',this.$route.params.id);
-    this.$store.dispatch('offers/getOfferById',this.$route.params.id);
+    this.$store.dispatch(
+      "retailers/getRetailersByOffer",
+      this.$route.params.id
+    );
+    this.$store.dispatch("offers/getOfferById", this.$route.params.id);
   },
-  name: 'Offer',
   computed: {
     offer() {
       return this.$store.state.offers.offer;
@@ -29,13 +38,15 @@ export default {
     retailers() {
       let retailers = this.$store.state.retailers.retailers;
       let retailerOffers = this.$store.state.retailers.retailersByOffer;
-      let result = retailers.filter(retailer => 
-        retailerOffers.some(retailerOffer =>        
-          retailerOffer.retailer_id === retailer.id));
+      let result = retailers.filter(retailer =>
+        retailerOffers.some(
+          retailerOffer => retailerOffer.retailer_id === retailer.id
+        )
+      );
 
       return result;
-    },
-  },
+    }
+  }
 };
 </script>
 

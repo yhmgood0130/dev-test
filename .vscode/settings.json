@@ -1,0 +1,23 @@
+{
+  "vetur.validation.template": false, // Allow eslint / eslint-plugin-vue handle the linting.
+  "vetur.format.defaultFormatterOptions": {
+      "prettyhtml": {
+          "wrapAttributes": true // Always split elements with multiple attributes on to multiple lines. 
+                                 // Added to jive with vue/recommended.
+      }
+  },
+  
+  "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      { "language": "vue", "autoFix": true }
+  ],
+
+  "[javascript]": {
+      "editor.formatOnSave": true,
+  },
+
+  "[vue]": {
+      "editor.formatOnSave": true,
+  },
+}

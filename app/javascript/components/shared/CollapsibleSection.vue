@@ -1,8 +1,14 @@
 <template>
   <div>
     <div class="header">
-      <span v-if="open" @click="open = !open">&#x25B2; Collapse</span>
-      <span v-if="!open" @click="open = !open">&#x25BC; Expand</span>
+      <span
+        v-if="open"
+        @click="open = !open"
+      >&#x25B2; Collapse</span>
+      <span
+        v-if="!open"
+        @click="open = !open"
+      >&#x25BC; Expand</span>
     </div>
     <slot v-if="open">
       <div>DefaultContent</div>
@@ -12,10 +18,10 @@
 
 <script>
 export default {
-  name: 'CollapsibleSection',
+  name: "CollapsibleSection",
   data() {
     return { open: true };
-  },
+  }
 };
 </script>
 

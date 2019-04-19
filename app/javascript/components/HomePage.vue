@@ -1,20 +1,24 @@
 <template>
   <div class="home">
     <div>
-      <img class="logo" src=""  aria-hidden="true" />
+      <img
+        class="logo"
+        src
+        aria-hidden="true"
+      >
     </div>
     <div class="get-started">
-      <router-link to="/build">Get started</router-link> find your first offer!
+      <router-link to="/build">Get started</router-link>find your first offer!
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HomePage',
+  name: "HomePage",
   props: {
-    msg: String,
-  },
+    msg: String
+  }
 };
 </script>
 
