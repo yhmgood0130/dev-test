@@ -24,16 +24,13 @@ export default {
         .then(result => commit('getRetailers', result.data))
         .catch(console.error);
     },
-    getRetailerOffers({ commit }, agentId) {
+    getRetailerOffers({ commit }) {
       axios.get('/api/v1/retaileroffers')
         .then(result => commit('getRetailerOffers', result.data))
         .catch(console.error);
     },
     getRetailersByOffer({ commit,state }, offerId) {
-      console.log(offerId);
-      
       let result = state.retailerOffers.filter(retailerOffer => retailerOffer.offer_id === offerId);
-      console.log(result);
       commit('getRetailersByOffer', result)
     }
   },

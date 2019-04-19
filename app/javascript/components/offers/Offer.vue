@@ -30,8 +30,8 @@ export default {
       let retailers = this.$store.state.retailers.retailers;
       let retailerOffers = this.$store.state.retailers.retailersByOffer;
       let result = retailers.filter(retailer => 
-        retailerOffers.filter(retailerOffer => 
-        retailerOffer.retailer_id === retailer.id));
+        retailerOffers.some(retailerOffer =>        
+          retailerOffer.retailer_id === retailer.id));
 
       return result;
     },

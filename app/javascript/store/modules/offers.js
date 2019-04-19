@@ -25,7 +25,8 @@ export default {
     offers: null,
     offerHistories: [],
     searchWord: null,
-    filteredOffers: []
+    filteredOffers: [],
+    selected: 0
   },
   mutations: {
     getOfferById(state, id) {
@@ -34,30 +35,17 @@ export default {
     getOffers(state, offers) {
       state.offers = offers;
     },
+    getOffersByRetailer(state, { offers, retailerId }) {
+      state.searchWord = null;
+      state.selected = retailerId;
+      state.filteredOffers = offers;
+    },
     saveOfferHistory(state,offer) {
       state.offerHistories.push(offer);
     },
-    selectedRetailerOffers(state, retailerId) {
-      if(+retailerId > 0) {
-        let offers = rootState.offers.offers;
-        let retailerOffers = rootState.retailers.retailersByOffer.filter(reOffer => reOffer.retailer_id === selected);
-        let result = offers.filter(retailer => 
-          retailerOffers.some(retailerOffer => 
-          retailerOffer.offer_id === offers.id));
-        state.filteredOffers
-      }
-    },
-    filteredOffers(state, word) {
-      if (!(word) || word === '{}') {
-        state.searchWord = null
-        state.filteredOffers = null
-      } else {
-        state.searchWord = word
-        word = removerAcentos(word.trim().toLowerCase())
-        state.filteredOffers = state.offers.filter((offer) => {
-          return offer.name.toLowerCase().includes(word);
-        })
-      }
+    filteredOffers(state, { searchWord, offers }) {
+      state.searchWord = searchWord;
+      state.filteredOffers = offers;
     },
     getOfferHistory(state) {
       state.offerHistories
@@ -72,11 +60,20 @@ export default {
         .then(result => commit('getOffers', result.data))
         .catch(console.error);
     },
+    getOffersByRetailer({ commit, state, rootState }, retailerId) {      
+      let retailerOffers = rootState.retailers.retailerOffers.filter(retailerOffer => retailerOffer.retailer_id === retailerId);
+      let offers = state.offers.filter(offer => retailerOffers.some((retailerOffer) => 
+        retailerOffer.offer_id === offer.id
+      ));
+
+      commit('getOffersByRetailer', { offers, retailerId })
+    },
     saveOfferHistory({ commit, state }, offer) {
       let isDuplicated = false;
       if (offer) {
         isDuplicated = state.offerHistories.some(o => o.id === offer.id);
       }
+      
       if (!isDuplicated) {
         commit('saveOfferHistory',offer);
       }
@@ -84,24 +81,30 @@ export default {
     getOfferHistory({ commit }) {
       commit('getOfferHistory');
     },
-    selectedRetailerOffers({ commit, state, rootState }, id) {
-      let offers = state.offers;
-      let retailerOffers = rootState.retailers.retailerOffers
-        .filter(reOffer => reOffer.retailer_id === selected);
-      let result = offers.filter(offer => retailerOffers.some(offer.id));
+    filteredOffers ({ commit,state }, word) {
+      let searchWord = word;
+      let offers = null;
+      if (!(word) || word === '{}') {
+        searchWord = null
+        offers = null
+      } else {
+        word = removerAcentos(word.trim().toLowerCase());
+        if(state.selected == 0) {
+          offers = state.offers.filter((offer) => {
+            return offer.name.toLowerCase().includes(word);
+          });
+        } else {
+          offers = state.filteredOffers.filter((offer) => {
+            return offer.name.toLowerCase().includes(word);
+          });
+        };
+        searchWord = word;
+      }
 
-      let result = offers.filter(retailer => 
-        retailerOffers.some(retailerOffer => 
-        retailerOffer.offer_id === offers.id));
-      state.filteredOffers
-    },
-    filteredOffers ({ commit }, word) {
-      commit('filteredOffers', word)
+      commit('filteredOffers', { searchWord, offers });
     }
   },
   getters: {
-    allOffers: (state) => state.offers,
-
     getFilteredOffer: (state) => state.filteredOffers
   },
 };

@@ -4,12 +4,11 @@
       <CollapsibleSection>
       <div class="preview-content">
         <input v-if="isOffer" type="search" v-model="searchWord" required />
-        <select v-model="selectedRetailer">
+        <select v-if="isOffer" v-model="selectedRetailer">
           <option disabled value="">Please select one</option>
           <option value=0>All</option>
           <option v-for="(retailer,idx) in retailers" :key="idx" :value="retailer.id">{{retailer.name}}</option>
         </select>
-        <span>Selected: {{ selectedRetailer }}</span>
         <div class="top-row offer-list">
           <div class="offer-box" v-for="(offer,idx) in offerList" :key="idx">
             <img @click="addToHistory(offer)" @  class="item-image" :src="offer.image_url">          
@@ -44,40 +43,44 @@ export default {
   },
   components: { CollapsibleSection },
   computed: {
-    offerList () {
-      const { isOffer } = this.$data;      
-        if (isOffer) {
-            let filteredOfferList = this.$store.getters['offers/getFilteredOffer'];
+    offerList: {
+      get() {
+        const { isOffer } = this.$data;      
+          if (isOffer) {
+              let filteredOfferList = this.$store.getters['offers/getFilteredOffer'];
+  
+              if (filteredOfferList) {                
+                filteredOfferList = (this.$store.getters['offers/getFilteredOffer'].length == 0 && this.selectedRetailer == 0 ? 
+                  this.$store.state.offers.offers :
+                  this.$store.getters['offers/getFilteredOffer'])
+              } else {
+                filteredOfferList = this.$store.state.offers.offers;
+              }
+              return filteredOfferList;
+          } else  {
+            return this.$store.state.offers.offerHistories;
+          }
+      }, set(value) {
 
-            if (filteredOfferList) {
-              filteredOfferList = (this.$store.getters['offers/getFilteredOffer'].length > 0 ? 
-                this.$store.getters['offers/getFilteredOffer'] :
-                this.$store.state.offers.offers)
-            } else {
-              filteredOfferList = this.$store.state.offers.offers;
-            }
-            return filteredOfferList;
-        } else  {
-          return this.$store.state.offers.offerHistories;
-        }
+      }
     },
     retailers() {
       return this.$store.state.retailers.retailers;
     },
     selectedRetailer: {
       get () {
-        return this.$store.state.offers.selectedRetailer
+        return this.$store.state.offers.selected;
       },
       set (value) {
-        this.$store.dispatch('offers/selectedRetailerOffers', value)
+        this.$store.dispatch('offers/getOffersByRetailer', value);
       }
     },
     searchWord: {
       get () {
-        return this.$store.state.offers.searchWord
+        return this.$store.state.offers.searchWord;
       },
       set (value) {
-        this.$store.dispatch('offers/filteredOffers', value)
+        this.$store.dispatch('offers/filteredOffers', value);
       }
     }
   },
@@ -92,7 +95,7 @@ export default {
     addToHistory(offer) {
       this.saveOfferHistory(offer)
         .then(() => this.$router.push({ name: 'Offer', params: { id: offer.id }}));
-    }
+    },
   },
 };
 

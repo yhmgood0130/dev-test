@@ -19,7 +19,7 @@ browser as a single page application.
 ### Nice to have
  * [x] Track offer views
  * [x] Search for offers
- * [ ] Filter offers in the gallery by retailer
+ * [x] Filter offers in the gallery by retailer
  * [x] Display retailer info for an offer
 
 ### Documentation
