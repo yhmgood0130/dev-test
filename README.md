@@ -13,7 +13,7 @@ browser as a single page application.
  * [x] Asynchronously request the data needed for your SPA from your Rails API
  * [x] Display all offers in a gallery view
  * [x] Display an individual offer in a detail view
- * [ ] Application is well tested
+ * [x] Application is well tested
  * [x] Provide code in a private git repo (hosted or in an archive)
 
 ### Nice to have
