@@ -29,7 +29,8 @@ db/*.sqlite3
 **.war
 *.rbc
 *.sassc
-.rspec
+# To run the rspect tests in order, I commented .rspec out
+# .rspec 
 .redcar/
 .sass-cache
 /config/config.yml

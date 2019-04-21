@@ -1,6 +1,7 @@
 <template>
   <div class="content">
     <div class="preview">
+      <CollapsibleSection>
       <div class="preview-content">
         <input
           v-if="isOffer"
@@ -36,6 +37,7 @@
           </div>
         </div>
       </div>
+      </CollapsibleSection>
     </div>
   </div>
 </template>

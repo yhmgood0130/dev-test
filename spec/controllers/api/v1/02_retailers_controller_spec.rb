@@ -14,8 +14,8 @@ RSpec.describe "API V1 Retailers", type: 'request' do
 
     it "get Retailer by Id " do
       retailer1 = create(:retailer)
-      retailer1.update_attribute(:id, 1)
-      get '/api/v1/retailers/1'
+      retailer1.update_attribute(:id, 345)
+      get '/api/v1/retailers/345'
 
       expect(response).to be_success
       expect(json["name"]).to eq("MyString")
@@ -24,9 +24,9 @@ RSpec.describe "API V1 Retailers", type: 'request' do
     context "with invalid parameters" do
       it "fails when get RetailerById has wrong Id" do
         retailer1 = create(:retailer)
-        retailer1.update_attribute(:id, 1)
+        retailer1.update_attribute(:id, 720)
         
-        expect {get '/api/v1/retailers/2'}.to raise_error(ActiveRecord::RecordNotFound)
+        expect {get '/api/v1/retailers/721'}.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
