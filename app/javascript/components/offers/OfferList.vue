@@ -1,44 +1,41 @@
 <template>
   <div class="content">
     <div class="preview">
-      <CollapsibleSection>
-        <div class="preview-content">
-          <input
-            v-if="isOffer"
-            v-model="searchWord"
-            type="search"
-            required
+      <div class="preview-content">
+        <input
+          v-if="isOffer"
+          v-model="searchWord"
+          type="search"
+          required
+        >
+        <select
+          v-model="selectedRetailer"
+        >
+          <option
+            disabled
+            value
+          >Please select one</option>
+          <option value="0">All</option>
+          <option
+            v-for="(retailer,idx) in retailers"
+            :key="idx"
+            :value="retailer.id"
+          >{{retailer.name}}</option>
+        </select>
+        <div class="top-row offer-list">
+          <div
+            v-for="(offer,idx) in offerList"
+            :key="idx"
+            class="offer-box"
           >
-          <select
-            v-if="isOffer"
-            v-model="selectedRetailer"
-          >
-            <option
-              disabled
-              value
-            >Please select one</option>
-            <option value="0">All</option>
-            <option
-              v-for="(retailer,idx) in retailers"
-              :key="idx"
-              :value="retailer.id"
-            >{{retailer.name}}</option>
-          </select>
-          <div class="top-row offer-list">
-            <div
-              v-for="(offer,idx) in offerList"
-              :key="idx"
-              class="offer-box"
+            <img
+              class="item-image"
+              :src="offer.image_url"
+              @click="addToHistory(offer)"
             >
-              <img
-                class="item-image"
-                :src="offer.image_url"
-                @click="addToHistory(offer)"
-              >
-            </div>
           </div>
         </div>
-      </CollapsibleSection>
+      </div>
     </div>
   </div>
 </template>
@@ -50,11 +47,6 @@ import CollapsibleSection from "../shared/CollapsibleSection.vue";
 export default {
   name: "OfferList",
   components: { CollapsibleSection },
-  data() {
-    return {
-      isOffer: this.$route.path === "/offers"
-    };
-  },
   created() {
     const { isOffer } = this.$data;
     if (isOffer) {
@@ -65,9 +57,15 @@ export default {
     this.getRetailers();
     this.getRetailerOffers();
   },
+  data() {
+    return {
+      //Used window.location.pathname instead of this.$route.path due to test issue
+      isOffer: window.location.pathname === "/offers"
+    };
+  },
   computed: {
     offerList: {
-      get() {
+      get() {        
         const { isOffer } = this.$data;
         if (isOffer) {
           let filteredOfferList = this.$store.getters[

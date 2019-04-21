@@ -18,7 +18,7 @@
           <li class="nav-item">
             <router-link
               class="nav-link"
-              :to="{name: 'OfferList'}"
+              :to="{name: 'OfferList', params:{ isOffer: true }}"
               exact
             >Offer</router-link>
           </li>
@@ -54,7 +54,6 @@ body {
   background-attachment: fixed;
 }
 </style>
-
 
 <style scoped>
 #app {

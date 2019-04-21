@@ -7,7 +7,7 @@ export default {
   name: "Offer",
   computed: {
     title() {
-      return this.$route.fullPath === "/offers" ? "Offer" : "History";
+      return window.location.pathname === "/offers" ? "Offer" : "History";
     }
   }
 };
